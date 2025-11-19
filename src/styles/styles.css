@@ -173,6 +173,7 @@ body {
 .post-card {
   width: 100%;
   max-width: 650px;
+  margin: 0 auto;
   background: var(--card);
   backdrop-filter: blur(12px);
   padding: 20px;
@@ -269,3 +270,39 @@ body {
     flex-direction: column;
   }
 }
+/* FORCE CENTER LAYOUT ----------------------------------- */
+
+.home-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* CENTER EVERYTHING */
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;          /* CENTER THE CONTAINER */
+}
+
+.header-title {
+  font-size: 3rem;
+  color: var(--accent);
+  text-align: center;
+}
+
+.create-btn {
+  margin-bottom: 20px;
+}
+
+.sort-center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Center post list */
+.posts-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

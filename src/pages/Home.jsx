@@ -28,20 +28,16 @@ export default function Home() {
 
   return (
     <div className="page-wrapper">
-      <div className="container fade-in">
+      <div className="home-center">
 
-        {/* Centered Header */}
-        <div className="header" style={{ textAlign: "center" }}>
-          <h1>HobbyHub</h1>
-        </div>
+        {/* Header */}
+        <h1 className="header-title">HobbyHub</h1>
 
-        {/* Centered Create Button */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
-          <a href="/create" className="btn">Create New Post</a>
-        </div>
+        {/* Create New Post */}
+        <a href="/create" className="btn create-btn">Create New Post</a>
 
-        {/* Centered Sort + Search */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: "25px" }}>
+        {/* Sort + Search */}
+        <div className="sort-center">
           <SortAndSearchBar
             orderBy={orderBy}
             setOrderBy={setOrderBy}
@@ -50,12 +46,14 @@ export default function Home() {
           />
         </div>
 
-        {/* Fully Centered Posts List */}
-        <div className="posts-list" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          {posts.length === 0 ? (
-            <p style={{ marginTop: "20px", opacity: 0.7 }}>No posts yet — be the first!</p>
-          ) : (
-            posts.map((post) => <PostCard key={post.id} post={post} />)
+        {/* Posts */}
+        <div className="posts-list">
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+
+          {posts.length === 0 && (
+            <p style={{ opacity: 0.7 }}>No posts yet.</p>
           )}
         </div>
 
