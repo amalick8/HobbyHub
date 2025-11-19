@@ -1,22 +1,20 @@
 # 🚗 JDM Afterhours  
-A neon-themed forum for late-night JDM car lovers. Users can create posts, upload images, upvote builds, leave comments, and browse the community feed with sorting, searching, and filters.
-
----
-
-## 📸 GIF Walkthrough  
-(Insert your GIF here)
-
----
-
-## 🌐 Live Demo  
-(Insert deployed link here)
-
----
 
 ## 📚 Overview  
 JDM Afterhours is a fully-functional community forum built for my WEB102 Final Project.  
 Users can create posts about their favorite cars, add images, leave comments, and engage with others through upvotes.  
 The app is powered by **React + Supabase**, and styled with a clean neon theme inspired by JDM night culture.
+
+---
+
+## 📸 GIF Walkthrough  
+![Demo](./demo.gif)
+
+---
+
+## 🌐 Live Demo  
+(working on this right now)
+
 
 ---
 
