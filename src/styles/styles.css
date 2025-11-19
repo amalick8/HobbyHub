@@ -217,16 +217,29 @@ a {
 /* ------------------------------------------------------------
    TAG BADGES
 ------------------------------------------------------------ */
-.tag-badge {
+/* --------------------------- */
+/* TAG BADGES — ALWAYS VISIBLE */
+/* --------------------------- */
+
+.tag-badge,
+.post-tag {
   display: inline-block;
-  padding: 5px 10px;
+  padding: 6px 12px;
   background: var(--jdm-blue);
   color: black;
-  font-weight: bold;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 8px;
+  margin: 10px 0;
 }
+
+/* Light mode override */
+[data-theme="light"] .tag-badge,
+[data-theme="light"] .post-tag {
+  background: var(--jdm-blue);
+  color: black;
+}
+
 
 
 /* ------------------------------------------------------------
@@ -419,17 +432,7 @@ body {
   background: var(--jdm-purple);
 }
 
-.tag-badge {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  background: var(--jdm-blue);
-  color: #000;
-  margin-top: 10px;
-}
+
 
 /* Force readable in light mode */
 [data-theme="light"] .tag-badge {
@@ -560,16 +563,6 @@ body {
 /* 🔥 TAG BADGE */
 /* ---------------------- */
 
-.post-tag {
-  display: inline-block;
-  background: var(--accent);
-  color: black;
-  padding: 6px 12px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 15px;
-}
 
 /* ---------------------- */
 /* 🔥 BUTTON ROW */
