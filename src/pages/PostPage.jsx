@@ -17,105 +17,132 @@ export default function PostPage() {
       .eq("id", id)
       .single();
 
-    if (!error) {
-      setPost(data);
-      setComments(data.comments || []);
-    }
+    if (!error) setPost(data);
   }
 
-  async function upvote() {
-    const { data } = await supabase
+  async function loadComments() {
+    const { data, error } = await supabase
+      .from("comments")
+      .select("*")
+      .eq("post_id", id)
+      .order("created_at", { ascending: true });
+
+    if (!error) setComments(data || []);
+  }
+
+  useEffect(() => {
+    loadPost();
+    loadComments();
+  }, [id]);
+
+  async function handleUpvote() {
+    const { data, error } = await supabase
       .from("posts")
       .update({ upvotes: post.upvotes + 1 })
       .eq("id", id)
       .select()
       .single();
 
-    setPost(data);
+    if (!error) setPost(data);
   }
 
-  async function submitComment() {
-    if (newComment.trim() === "") return;
-
-    const updated = [...comments, newComment];
-
-    const { data } = await supabase
-      .from("posts")
-      .update({ comments: updated })
-      .eq("id", id)
-      .select()
-      .single();
-
-    setComments(updated);
-    setNewComment("");
-  }
-
-  async function deletePost() {
+  async function handleDelete() {
     await supabase.from("posts").delete().eq("id", id);
     navigate("/");
   }
 
-  useEffect(() => {
-    loadPost();
-  }, []);
+  async function handleAddComment() {
+    if (!newComment.trim()) return;
 
-  if (!post) return <p>Loading...</p>;
+    const { data, error } = await supabase
+      .from("comments")
+      .insert({
+        post_id: id,
+        content: newComment,
+      })
+      .select()
+      .single();
+
+    if (!error) {
+      setComments([...comments, data]);
+      setNewComment("");
+    }
+  }
+
+  if (!post) return <p style={{ textAlign: "center" }}>Loading...</p>;
 
   return (
-    <div className="post-page-box">
+    <div className="page-box">
 
-      {/* IMAGE AT TOP */}
-      {post.image_url && (
-        <img src={post.image_url} alt="Post" className="post-image-top" />
-      )}
+      <div className="post-page-box">
+        {/* TAG */}
+        {post.tag && (
+          <div className="post-tag">{post.tag}</div>
+        )}
 
-      {/* TAG */}
-      {post.tag && <div className="post-tag">{post.tag}</div>}
+        {/* TITLE */}
+        <h1 className="post-title">{post.title}</h1>
+        <p className="post-full-content">{post.content}</p>
 
-      {/* TITLE */}
-      <h2 className="post-title">{post.title}</h2>
 
-      {/* META */}
-      <p className="post-meta">
-        Created: {new Date(post.created_at).toLocaleString()}
-      </p>
+        {/* META */}
+        <p className="post-meta">
+          Created: {new Date(post.created_at).toLocaleString()}
+        </p>
 
-      <p className="post-meta">🔥 {post.upvotes} upvotes</p>
+        {/* IMAGE */}
+        {post.image_url && (
+          <img src={post.image_url} alt="post" className="post-image-top" />
+        )}
 
-      {/* ACTION BUTTONS */}
-      <div className="post-actions">
-        <button className="upvote-btn" onClick={upvote}>Upvote</button>
+        {/* UPVOTES */}
+        <p style={{ fontSize: "18px", marginBottom: "15px" }}>
+          🔥 {post.upvotes} upvotes
+        </p>
 
-        <Link to={`/edit/${id}`}>
-          <button className="edit-btn">Edit</button>
-        </Link>
+        {/* BUTTONS */}
+        <div className="post-actions">
+          <button className="upvote-btn" onClick={handleUpvote}>
+            Upvote
+          </button>
 
-        <button className="delete-btn" onClick={deletePost}>Delete</button>
+          <Link to={`/edit/${id}`}>
+            <button className="edit-btn">Edit</button>
+          </Link>
+
+          <button className="delete-btn" onClick={handleDelete}>
+            Delete
+          </button>
+        </div>
       </div>
 
-      {/* COMMENTS */}
-      <h3 className="comments-title">Comments</h3>
+      {/* COMMENTS SECTION */}
+      <div className="comments-container">
+        <h2 className="comments-title">Comments</h2>
 
-      {comments.length === 0 && (
-        <p className="no-comments">No comments yet.</p>
-      )}
+        {comments.length === 0 && (
+          <p className="no-comments">No comments yet.</p>
+        )}
 
-      {comments.map((c, index) => (
-        <p key={index} className="comment-text">• {c}</p>
-      ))}
+        {comments.map((c) => (
+          <div key={c.id} className="comment">
+            {c.content}
+          </div>
+        ))}
 
-      {/* COMMENT INPUT */}
-      <div className="comment-row">
-        <input
-          className="comment-box"
-          placeholder="Add a comment..."
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-        />
+        {/* COMMENT INPUT */}
+        <div className="comment-row">
+          <input
+            className="comment-box"
+            placeholder="Add a comment..."
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          />
 
-        <button className="comment-submit" onClick={submitComment}>
-          Add
-        </button>
+          <button className="comment-submit" onClick={handleAddComment}>
+            Add
+          </button>
+        </div>
       </div>
 
     </div>

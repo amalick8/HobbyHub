@@ -421,13 +421,20 @@ body {
 
 .tag-badge {
   display: inline-block;
-  background: var(--accent);
-  color: black;
   padding: 6px 12px;
   border-radius: 8px;
-  margin: 12px 0 4px;
   font-size: 14px;
   font-weight: 600;
+  margin-bottom: 10px;
+  background: var(--jdm-blue);
+  color: #000;
+  margin-top: 10px;
+}
+
+/* Force readable in light mode */
+[data-theme="light"] .tag-badge {
+  background: var(--jdm-blue);
+  color: #000;
 }
 
 /* Tag color stays readable */
@@ -513,20 +520,21 @@ body {
 /* 🔥 POST PAGE CONTAINER */
 /* ---------------------- */
 
+/* REAL POST PAGE WRAPPER */
 .post-page-box {
-  .post-page-box {
-  background: var(--card-bg);
+  background: var(--bg-box);
   padding: 32px;
   border-radius: 22px;
-  box-shadow: 0 0 25px rgba(132, 0, 255, 0.15);
   border: 1px solid rgba(150, 80, 255, 0.4);
+  box-shadow: 0 0 25px rgba(132, 0, 255, 0.15);
+  backdrop-filter: blur(12px);
 
-  /* FIX THE WIDTH */
+  /* THIS FIXES YOUR WIDTH */
   max-width: 900px;
-  margin: 40px auto;   /* centers it */
+  margin: 40px auto;
+  width: 100%;
 }
 
-}
 
 /* ---------------------- */
 /* 🔥 POST TITLE */
@@ -645,12 +653,17 @@ body {
 /* COMMENT SUBMIT BUTTON */
 .comment-submit {
   background: #8c47ff;
-  padding: 14px 26px;
+  padding: 14px 32px;       /* wider */
+  height: 52px;             /* EXACT match height */
   border-radius: 12px;
+  margin-top: 24px;
   color: white;
   font-size: 16px;
   border: none;
   cursor: pointer;
+  display: flex;            /* centers text */
+  align-items: center;      
+  justify-content: center;
   transition: 0.2s ease-in-out;
 }
 

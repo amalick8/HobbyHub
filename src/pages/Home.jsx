@@ -108,6 +108,7 @@ export default function Home() {
             {post.tag && <div className="tag-badge">{post.tag}</div>}
 
             <h3>{post.title}</h3>
+            <p className="post-preview">{post.content?.slice(0, 180)}...</p>
             <p className="meta">
               Posted: {new Date(post.created_at).toLocaleString()}
             </p>
